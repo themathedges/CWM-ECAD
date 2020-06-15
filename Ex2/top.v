@@ -21,12 +21,22 @@
 `timescale 1ns / 100ps
 
 module mux(
-    //Todo: define inputs here
+    input wire sel, input a, input b, output reg out	
     );
-    
-    //Todo: define registers and wires here
 
+    // should I do an 'initial begin' block to set all values to zero and even include the delay there?
+    //initial begin
+	//out = 0;
+	//#5
+    //end
 
-    //Todo: define your logic here                 
+    always @(posedge sel) 
+	if (sel)
+	   out <= b;
+	   #5 // delay of 5 ticks at both input and output?
+	else
+	   out <= a;
+	   #5
+                  
       
 endmodule
