@@ -21,22 +21,16 @@
 `timescale 1ns / 100ps
 
 module mux(
-    input wire sel, input a, input b, output reg out	
+    input sel, input a, input b, output reg out	
     );
 
-    // should I do an 'initial begin' block to set all values to zero and even include the delay there?
-    //initial begin
-	//out = 0;
-	//#5
-    //end
-
-    always @(posedge sel) 
+    always @(*) // always @(sel) ~ execute at any event not just when sel is high!
 	if (sel)
-	   out <= b;
-	   #5 // delay of 5 ticks at both input and output?
+	   #5 out <= b;
+	    // delay of 5 ticks at both input and output? not sure if this is also at output
 	else
-	   out <= a;
-	   #5
+	   #5 out <= a;
+	   
                   
       
 endmodule
