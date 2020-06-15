@@ -11,18 +11,27 @@
 `timescale 1ns / 100ps
 
 module top_tb(
-    );
+    );			// no ports
     
-//Todo: Parameters
+parameter clk_period = 10;
 
-//Todo: Regitsers and wires
+reg out;
 
-//Todo: Clock generation
+initial begin
+	clk = 0;
+	forever
+		#(clk_period/2)clk = ~clk; // delay of half a cycle, clk = not clk - would this also work with '!clk' ??
+	end
 
-//Todo: User logic
-    
-//Todo: Finish test, check for success
+initial begin
+	rst = 0;
+	enable = 0;
+	direction = 0;
+	counter_out = 0;
+	end
 
-//Todo: Instantiate counter module
+// very confused about what the top_tb for ex2 relates to this logic section or what any of it means 
+
+top_module top(clk,rst,enable,direction,counter_out);
  
 endmodule 
