@@ -31,6 +31,6 @@ module logicalunit(
     
     wire   out;
          
-      //Todo: add you logic here
+    assign out = func[0] & !a & !b | func[1] & !a & b | func[2] & a & !b | func[3] & a & b;
 
 endmodule
