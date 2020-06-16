@@ -24,36 +24,35 @@ initial begin
 	end
 
 initial begin						// initialise values
-	rst = 0;
-	tmp = 0;                   			// temporary variable?
+	rst = 0;                  			
 	enable = 0;
 	direction = 0;
 	err = 0;
-	#(3*clk_period)
+	#(4*clk_period)
 	forever begin
 		tmp = counter_out;
-		#(1.5*clk_period) 			// not sure how long this should be - I just want to be sure the counter will increment or decrement
-		if (((direction & enable & !rst) | (!direction & enable & !rst)) & (counter_out == tmp)) begin 					// if nothing changes, test failed
-		$display("TEST FAILED, NO COUNTING")
+		#(2*clk_period) 			
+		if (((direction && enable && !rst) || (!direction && enable && !rst)) & (counter_out == tmp)) begin 			// if nothing changes, test failed
+		$display("TEST FAILED, NO COUNTING");
 		err = 1;
 		      end
 
-		if (((direction & enable & !rst) & (counter_out == tmp-1)) | ((!direction & enable & !rst) & (counter_out = tmp+1))) begin 	/* if counter counts in wrong 																				direction, test failed */
-		$display("TEST FAILED, COUNTS IN WRONG DIRECTION")
+		if (((direction && enable && !rst) && (counter_out == tmp-1)) || ((!direction && enable && !rst) && (counter_out == tmp+1))) begin /* if counter counts in wrong 																				direction, test failed */
+		$display("TEST FAILED, COUNTS IN WRONG DIRECTION");
 		err = 1;
 		      end
 		
-		tmp = tmp + 1; 				// not sure why this is here but something similar was in the other top_tb examples
+		//tmp = tmp + 1; 				// not sure why this is here but something similar was in the other top_tb examples
 		end
 	end
 		
 initial begin
 	#(20*clk_period)
 	if (err == 0)
-	$display("TEST PASSED")				// compiler ignores $ commands
-	$finish
+	$display("TEST PASSED");				// compiler ignores $ commands
+	$finish;
 	end 
 
-top_module top(clk,rst,enable,direction,counter_out); 	// instantiate module
+top_module top (.clk(clk),.rst(rst),.enable(enable),.direction(direction),.counter_out(counter_out)); 		// instantiate module
  
 endmodule 
