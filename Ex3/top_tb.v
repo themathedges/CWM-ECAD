@@ -14,8 +14,9 @@ module top_tb();
     
 parameter clk_period = 10;
 
-reg clk, enable, direction, rst, err, tmp;
-wire counter_out;
+reg clk, enable, direction, rst, err;
+reg [7:0] tmp;
+wire [7:0] counter_out;
 
 initial begin
 	clk = 0;
@@ -24,13 +25,16 @@ initial begin
 	end
 
 initial begin						// initialise values
-	rst = 0;                  			
-	enable = 0;
-	direction = 0;
+	rst = 0;
+	#clk_period rst = 1;
+	enable = 0;      
+	#clk_period rst = 0;            			
+	#clk_period enable = 1;
+	direction = 1;
 	err = 0;
 	#(4*clk_period)
 	forever begin
-		tmp = counter_out;
+		tmp <= counter_out;
 		#(2*clk_period) 			
 		if (((direction && enable && !rst) || (!direction && enable && !rst)) & (counter_out == tmp)) begin 			// if nothing changes, test failed
 		$display("TEST FAILED, NO COUNTING");
@@ -53,6 +57,6 @@ initial begin
 	$finish;
 	end 
 
-top_module top (.clk(clk),.rst(rst),.enable(enable),.direction(direction),.counter_out(counter_out)); 		// instantiate module
+counter counter (.clk(clk),.rst(rst),.enable(enable),.direction(direction),.counter_out(counter_out)); 		// instantiate module
  
 endmodule 
