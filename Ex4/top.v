@@ -16,57 +16,49 @@
 //  You need to write the whole file.
 //////////////////////////////////////////////////////////////////////////////////
 
-module dice(input clk, rst, button, output [2:0] throw)
+module dice(input clk, rst, button, output reg [2:0] throw);
 
-always @(*)
+always @(posedge clk) begin
 
-	if ((rst == 0) && (button || !button)) begin // im not entirely sure if im starting this correctly?
-	throw = 3'b1;
+	if ((rst == 0) begin         // not sure if i need a begin/end here
+	throw <= 3'b1;
 
-		if (rst == 1)
-		?
-		else if ((rst == 0) && (!button))
-		throw = throw;
-		else if 
-		throw = 3'b10;        
+		if (!button)
+		throw <= throw;
+		else  
+		throw <= 3'b10;        
         
-		if (rst == 1)
-		?
-		else if ((rst == 0) && (!button))
-		throw = throw;
-		else if 
-		throw = 3'b11;
+		if (!button)
+		throw <= throw;
+		else 
+		throw <= 3'b11;
 
-		if (rst == 1)
-		?
-		else if ((rst == 0) && (!button))
-		throw = throw;
-		else if
-		throw = 3'b100;
-
-		if (rst == 1)
-		?
-		else if ((rst == 0) && (!button))
-		throw = throw;
-		else if
-		throw = 3'b101;
-
-		if (rst == 1)
-		?
-		else if ((rst == 0) && (!button))
-		throw = throw;
+		if (!button)
+		throw <= throw;
 		else
-		throw = 3'b110;
+		throw <= 3'b100;
 
-		if (rst == 1)
-		?
-		else if (!button)
-		throw = throw;
-		else if
-		throw = 3'b1;
-	else
-	?						// im not sure what to write if rst == 1?
+		if (!button)
+		throw <= throw;
+		else
+		throw <= 3'b101;
+
+		if (!button)
+		throw <= throw;
+		else
+		throw <= 3'b110;
+
+		if (!button)
+		throw <= throw;
+		else
+		throw <= 3'b1;
+	
 	end
+	else
+	throw <= 3'b0;						
+	
+	
+end
 	
 endmodule
 
