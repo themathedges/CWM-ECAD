@@ -16,11 +16,12 @@
 //  You need to write the whole file.
 //////////////////////////////////////////////////////////////////////////////////
 
+`timescale 1ns/100ps
 module dice(input clk, rst, button, output reg [2:0] throw);
 
 always @(posedge clk) begin
 
-	if ((rst == 0) begin         // not sure if i need a begin/end here
+	if (rst == 0) begin         // not sure if i need a begin/end here
 	throw <= 3'b1;
 
 		if (!button)
