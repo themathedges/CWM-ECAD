@@ -33,7 +33,7 @@ initial begin
 	#(10*clk_period)
 
 	forever begin
-		throw <= tmp;
+		tmp = throw;
 		#(clk_period) 
 		if (tmp != throw + 1); // this may need to be the other way around
 		$display("TEST FAILED");
