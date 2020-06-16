@@ -22,19 +22,20 @@ initial begin
 		#(clk_period/2)clk = ~clk; 		// delay of half a cycle, clk = bitwise not clk 
 	end
 
-initial begin						// initialise values
+initial begin	
+	tmp = 3'b0;					// initialise values
 	rst = 0;
 	#clk_period rst = 1; 
 	button = 0;      
 	#clk_period rst = 0;            			
 	#clk_period button = 1;
 	err = 0;
-	#(4*clk_period)
+	#(10*clk_period)
 
 	forever begin
-		tmp <= throw;
+		throw <= tmp;
 		#(clk_period) 
-		if (tmp != throw + 1);
+		if (tmp != throw + 1); // this may need to be the other way around
 		$display("TEST FAILED");
 		err = 1;
 		end
