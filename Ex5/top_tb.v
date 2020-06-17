@@ -14,10 +14,11 @@ parameter clk_period = 10;
 
 reg clk, err;
 reg [2:0] prev;
-wire [2:0] state;
-assign red = state[2];
-assign amber = state[1];
-assign green = state[0];
+wire [2:0] state2;
+assign red = state2[2];
+assign amber = state2[1];
+assign green = state2[0];
+//assign prev = state2;
 
 initial begin
 	clk = 0;
@@ -26,27 +27,32 @@ initial begin
 	end
 
 initial begin	   
-	prev = state;
+	prev = state2;
 	err = 0;					// prev will hopefully store the previous value of state, in which [111] represents [RAG]
 	#clk_period
 
 	forever begin
+		//prev = state2;
 		#(10*clk_period) 			
-		if ((state == 3'b110) && (prev != 3'b100))
+		if ((state2 == 3'b110) && (prev != 3'b100)) begin	// forgot begin and end pairs
 		$display("TEST FAILED");
 		err = 1;
+		end
 
-		if ((state == 3'b001) && (prev != 3'b110))
+		if ((state2 == 3'b001) && (prev != 3'b110)) begin
 		$display("TEST FAILED");
 		err = 1;
+		end
 
-		if ((state == 3'b010) && (prev != 3'b001))
+		if ((state2 == 3'b010) && (prev != 3'b001)) begin
 		$display("TEST FAILED");
 		err = 1;
+		end
 
-		if ((state == 3'b100) && (prev != 3'b010)) //I think I could add a default?
+		if ((state2 == 3'b100) && (prev != 3'b010)) begin //I think I could add a default?
 		$display("TEST FAILED");
 		err = 1;
+		end
 
 		end
 end
