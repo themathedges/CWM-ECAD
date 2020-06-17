@@ -21,35 +21,35 @@ module dice(input clk, rst, button, output reg [2:0] throw);
 
 always @(posedge clk) begin
 
-	if (rst == 0) begin         // not sure if i need a begin/end here
+	if (rst == 0) begin         
 	throw <= 3'b1;
 
-		if (!button)
+		if ((!button) && (throw == 3'b1))
 		throw <= throw;
 		else  
 		throw <= 3'b10;        
         
-		if (!button)
+		if ((!button) && (throw == 3'b10))
 		throw <= throw;
 		else 
 		throw <= 3'b11;
 
-		if (!button)
+		if ((!button) && (throw == 3'b11))
 		throw <= throw;
 		else
 		throw <= 3'b100;
 
-		if (!button)
+		if ((!button) && (throw == 3'b100))
 		throw <= throw;
 		else
 		throw <= 3'b101;
 
-		if (!button)
+		if ((!button) && (throw == 3'b101))
 		throw <= throw;
 		else
 		throw <= 3'b110;
 
-		if (!button)
+		if ((!button) && (throw == 3'b110))
 		throw <= throw;
 		else
 		throw <= 3'b1;
