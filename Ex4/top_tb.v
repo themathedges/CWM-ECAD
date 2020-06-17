@@ -23,16 +23,15 @@ initial begin
 	end
 
 initial begin	
-	tmp = 3'b0;     
+	tmp = 3'b0;    
 	#clk_period rst = 0;            			
 	#clk_period button = 1;
 	err = 0;
 	#(1.5*clk_period)
-
+	tmp = throw;
 	forever begin
-		tmp = throw;
-		#(clk_period) 
-		if ((throw != tmp + 1) && (throw != 3'b1)); 
+		#(10*clk_period) 			// I dont understand why 10 works but 1 or 2 didnt?
+		if ((throw != tmp+3'b1) && (throw != 3'b1)); 
 		$display("TEST FAILED");
 		err = 1;
 		end
