@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 `timescale 1ns/100ps
 
-module traffic(input clk, output red, amber, green);
+module traffic(input clk, output red, output amber, output green);
 
 reg [2:0] state;
 
