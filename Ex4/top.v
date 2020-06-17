@@ -24,35 +24,29 @@ always @(posedge clk) begin
 	if (rst == 0) begin         
 	throw <= 3'b1;
 
-		if ((!button) && (throw == 3'b1))
-		throw <= throw;
-		else  
-		throw <= 3'b10;        
+		if (button) begin
+
+			if (throw == 3'b1)
+			throw <= 3'b10;      
         
-		if ((!button) && (throw == 3'b10))
-		throw <= throw;
-		else 
-		throw <= 3'b11;
+			if (throw == 3'b10)
+			throw <= 3'b11;
+		
+			if (throw == 3'b11)
+			throw <= 3'b100;
+		
+			if (throw == 3'b100)
+			throw <= 3'b101;
+		
+			if (throw == 3'b101)
+			throw <= 3'b110;
 
-		if ((!button) && (throw == 3'b11))
-		throw <= throw;
-		else
-		throw <= 3'b100;
+			if (throw == 3'b110)
+			throw <= 3'b1;
 
-		if ((!button) && (throw == 3'b100))
-		throw <= throw;
+		end
 		else
-		throw <= 3'b101;
-
-		if ((!button) && (throw == 3'b101))
 		throw <= throw;
-		else
-		throw <= 3'b110;
-
-		if ((!button) && (throw == 3'b110))
-		throw <= throw;
-		else
-		throw <= 3'b1;
 	
 	end
 	else
