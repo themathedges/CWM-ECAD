@@ -15,10 +15,10 @@ parameter clk_period = 10;
 reg clk, err;
 reg [2:0] prev;
 wire [2:0] state2;
+assign state2 = prev;
 assign red = state2[2];
 assign amber = state2[1];
 assign green = state2[0];
-//assign prev = state2;
 
 initial begin
 	clk = 0;
@@ -27,7 +27,7 @@ initial begin
 	end
 
 initial begin	   
-	prev = state2;
+	//prev = state2;
 	err = 0;					// prev will hopefully store the previous value of state, in which [111] represents [RAG]
 	#clk_period
 
