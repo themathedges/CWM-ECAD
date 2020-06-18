@@ -14,14 +14,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 `timescale 1ns/100ps
-module multiplier(clka, a, b, ena, result);
+module multiplier(input clka, input [2:0 ]a, input [2:0] b, input ena, output reg [5:0] result);
 
-input clka, ena, [2:0] a, [2:0] b;
-output reg [5:0] result
+reg [5:0] addra;
+reg [5:0] douta;
 
 always @(posedge clka) begin
 	if (ena) begin
-	a
+	addra <= a*b;
+	result <= douta;
 	
 	end else begin
 	result <= 5'b0;
