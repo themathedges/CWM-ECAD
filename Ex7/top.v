@@ -14,15 +14,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 `timescale 1ns/100ps
-module multiplier(input clka, input [2:0 ]a, input [2:0] b, input ena, output reg [5:0] result);
+module multiplier(input clka, input [2:0]a, input [2:0] b, input ena, output reg [5:0] result);
 
-reg [5:0] addra;
-reg [5:0] douta;
+reg [5:0] addr1;
+reg [5:0] dout1;
 
 always @(posedge clka) begin
 	if (ena) begin
-	addra <= a*b;
-	result <= douta;
+	addr1 <= a*b;
+	result <= dout1;
 	
 	end else begin
 	result <= 5'b0;
@@ -32,9 +32,9 @@ blk_mem_gen_0 mybram (
   .clka(clka),    // input wire clka
   .ena(ena),      // input wire ena
   .wea(wea),      // input wire [0 : 0] wea
-  .addra(addra),  // input wire [5 : 0] addra
+  .addra(addr1),  // input wire [5 : 0] addra
   .dina(dina),    // input wire [5 : 0] dina
-  .douta(douta)  // output wire [5 : 0] douta
+  .douta(dout1)  // output wire [5 : 0] douta
 );
 
 endmodule
