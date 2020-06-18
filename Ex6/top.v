@@ -22,10 +22,12 @@
 `timescale 1ns / 100ps
 
 module mux(
-    input clk, input rst, input button, input sel, output reg [2:0] result	
+     clk, rst, button, sel, result	
     );
 
-reg [2:0]state;
+input clk, rst, button, sel;
+output reg [2:0] result;
+reg [2:0] state;
 
 always @(*) begin 
 	if (sel) begin
