@@ -7,6 +7,7 @@
 // You need to write the whole file
 //////////////////////////////////////////////////////////////////////////////////
 
+// ***this was my original attempt this morning but apparently it is incorrect***
 `timescale 1ns/100ps
 
 module top_tb();
