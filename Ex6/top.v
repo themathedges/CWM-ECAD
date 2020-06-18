@@ -19,4 +19,28 @@
 //           result[2:0]
 //
 //////////////////////////////////////////////////////////////////////////////////
+`timescale 1ns / 100ps
 
+module mux(
+    input clk, input rst, input button, input sel, output reg [2:0] result	
+    );
+
+reg [2:0]state;
+
+always @(*) begin 
+	if (sel) begin
+	
+	state[2] = red;
+	state[1] = amber;
+	state[0] = green;
+	#5 result = state;
+	end else begin
+	
+	#5 result = throw;
+	end
+end
+
+traffic traffic(.clk(clk), .red(red), .amber(amber), .green(green));                 
+dice dice(.clk(clk), .rst(rst), .button(button), .throw(throw));
+
+endmodule
