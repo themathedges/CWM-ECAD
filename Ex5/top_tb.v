@@ -15,10 +15,10 @@ parameter clk_period = 10;
 reg clk, err;
 reg [2:0] prev;
 wire [2:0] state2;
-assign state2 = prev;
-assign red = state2[2];
-assign amber = state2[1];
-assign green = state2[0];
+//assign state2 = prev;
+assign state2[2] = red;
+assign state2[1] = amber;
+assign state2[0] = green; // output wires were assigned the wrong way around
 
 initial begin
 	clk = 0;
@@ -32,8 +32,8 @@ initial begin
 	#clk_period
 
 	forever begin
-		//prev = state2;
-		#(10*clk_period) 			
+		prev = state2;
+		#(1*clk_period) 			
 		if ((state2 == 3'b110) && (prev != 3'b100)) begin	// forgot begin and end pairs
 		$display("TEST FAILED");
 		err = 1;
