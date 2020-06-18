@@ -14,14 +14,7 @@ module top_tb();
 parameter clk_period = 10;
 
 reg clk, rst, button, err, sel;
-reg [2:0] prev_throw;
-reg [2:0] prev_traffic;
-wire [2:0] throw;
-wire [2:0] traffic;
-
-assign traffic[2] = red;
-assign traffic[1] = amber;
-assign traffic[0] = green; 
+wire [2:0] result;
 
 initial begin
 	sel = 1; // choose traffic or dice
@@ -47,41 +40,7 @@ initial begin
 		$display("TEST FAILED");
 		err = 1;
 		end
-
-		if ((traffic == 3'b001) && (prev_traffic != 3'b110)) begin
-		$display("TEST FAILED");
-		err = 1;
 		end
-
-		if ((traffic == 3'b010) && (prev_traffic != 3'b001)) begin
-		$display("TEST FAILED");
-		err = 1;
-		end
-
-		if ((traffic == 3'b100) && (prev_traffic != 3'b010)) begin 
-		$display("TEST FAILED");
-		err = 1;
-		end
-		end
-	end else begin
-	prev_traffic = traffic; // if sel = 0 I want to set traffic related variables to 0 (which works fine a/c to timing diagram)
-	prev_traffic = 3'b0;    
-	#clk_period rst = 0;            			
-	#clk_period button = 1;
-	err = 0;
-	#(1.5*clk_period)
-	prev_throw = 3'b0;
-
-	forever begin
-		prev_throw = throw;
-		#clk_period			
-		if ((throw != prev_throw+3'b1) && (throw != 3'b1)) begin 
-		$display("TEST FAILED");
-		err = 1;
-		end
-		end
-		end
-end
 
 initial begin
 	#(20*clk_period)
@@ -90,8 +49,6 @@ initial begin
 	$finish;
 	end 
 
-mux mux2(.clk(clk), .rst(rst), .button(button), .sel(sel), .result(result));
-traffic traffic2(.clk(clk), .red(red), .amber(amber), .green(green)); 
-dice dice2(.clk(clk), .rst(rst), .button(button), .throw(throw));		
+mux mux(.clk(clk), .rst(rst), .button(button), .sel(sel), .result(result));
 
 endmodule 
