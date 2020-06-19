@@ -18,14 +18,14 @@ module multiplier(input clk, input rst, input [2:0] a, input [2:0] b, input read
 
 wire [31:0] addr_wire;
 wire [31:0] result_wire;
-wire arvalid, rvalid, rsta_busy, rstb_busy;
+wire arvalid, rvalid, arready, rsta_busy, rstb_busy;
 
-assign addr_wire = arvalid ? {24'b0,a,b,2'b0} : 32'bX; 	// undefined if !arvalid
+assign addr_wire = (arvalid && arready)? {24'b0,a,b,2'b0} : 32'bX; 	// undefined if !arvalid
 
 assign rsta_busy = rst? 1'b1:1'b0;
 assign rstb_busy = rst? 1'b1:1'b0;
 
-assign result_wire[5:0] = (!rst && rvalid) ? result:result_wire[5:0]; // undefined if !rvalid
+assign result_wire[5:0] = (!rst && rvalid) ? result:result_wire[5:0]; 
 
 
 // . instance port ( module assignment ) is notation
@@ -36,7 +36,7 @@ blk_mem_gen_0 mybram (
   .s_aclk(clk),                // input wire s_aclk
   .s_aresetn(1'b1),          // input wire s_aresetn ~ *** SET TO 1 TO DEACTIVATE GLOBAL RST		
   .s_axi_awaddr(32'b0),    // input wire [31 : 0] s_axi_awaddr
-  .s_axi_awvalid(32'b0),  // input wire s_axi_awvalid
+  .s_axi_awvalid(1'b0),  // input wire s_axi_awvalid
   .s_axi_awready(),  // output wire s_axi_awready
   .s_axi_wdata(32'b0),      // input wire [31 : 0] s_axi_wdata
   .s_axi_wstrb(4'b0),      // input wire [3 : 0] s_axi_wstrb
@@ -47,7 +47,7 @@ blk_mem_gen_0 mybram (
   .s_axi_bready(1'b1),    // input wire s_axi_bready 
   .s_axi_araddr(addr_wire),    // input wire [31 : 0] s_axi_araddr
   .s_axi_arvalid(arvalid),  // input wire s_axi_arvalid
-  .s_axi_arready(1'b1),  // output wire s_axi_arready
+  .s_axi_arready(arready),  // output wire s_axi_arready
   .s_axi_rdata(result_wire),      // output wire [31 : 0] s_axi_rdata
   .s_axi_rresp(),      // output wire [1 : 0] s_axi_rresp
   .s_axi_rvalid(rvalid),    // output wire s_axi_rvalid
