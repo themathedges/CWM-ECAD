@@ -34,9 +34,9 @@ blk_mem_gen_0 mybram (
   .rsta_busy(rsta_busy),          // output wire rsta_busy
   .rstb_busy(rstb_busy),          // output wire rstb_busy
   .s_aclk(clk),                // input wire s_aclk
-  .s_aresetn(rst),          // input wire s_aresetn ~ *** IS THIS !RST ??		
+  .s_aresetn(1'b1),          // input wire s_aresetn ~ *** SET TO 1 TO DEACTIVATE GLOBAL RST		
   .s_axi_awaddr(32'b0),    // input wire [31 : 0] s_axi_awaddr
-  .s_axi_awvalid(1'b0),  // input wire s_axi_awvalid
+  .s_axi_awvalid(32'b0),  // input wire s_axi_awvalid
   .s_axi_awready(),  // output wire s_axi_awready
   .s_axi_wdata(32'b0),      // input wire [31 : 0] s_axi_wdata
   .s_axi_wstrb(4'b0),      // input wire [3 : 0] s_axi_wstrb
@@ -44,7 +44,7 @@ blk_mem_gen_0 mybram (
   .s_axi_wready(),    // output wire s_axi_wready
   .s_axi_bresp(),      // output wire [1 : 0] s_axi_bresp
   .s_axi_bvalid(),    // output wire s_axi_bvalid
-  .s_axi_bready(1'b1),    // input wire s_axi_bready ~ HIGH IE READY TO READ ??
+  .s_axi_bready(1'b1),    // input wire s_axi_bready 
   .s_axi_araddr(addr_wire),    // input wire [31 : 0] s_axi_araddr
   .s_axi_arvalid(arvalid),  // input wire s_axi_arvalid
   .s_axi_arready(1'b1),  // output wire s_axi_arready
