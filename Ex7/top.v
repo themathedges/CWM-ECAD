@@ -21,7 +21,7 @@ module multiplier(input clk, input [2:0] a, input [2:0] b, input read, output wi
 blk_mem_gen_0 mybram (
   .clka(clk),    // input wire clka
   .ena(read),      // input wire ena
-  .wea(wea),      // input wire [0 : 0] wea
+  .wea(1'b0),      // input wire [0 : 0] wea
   .addra({a,b}),  // input wire [5 : 0] addra
   .dina(6'b0),    // input wire [5 : 0] dina
   .douta(result)  // output wire [5 : 0] douta
