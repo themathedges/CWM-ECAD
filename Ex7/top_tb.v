@@ -24,7 +24,7 @@ initial begin
 
 initial begin
 	read = 0;	 
-	a = 3'b011; // 3 * 4 should give result = 12 ie 1100
+	a = 4'b1110; // 14 * 4 should give result = 56 
 	b = 3'b100;					
 	#clk_period
 	read = 1;
@@ -34,6 +34,6 @@ initial begin
 		end
 		end
 
-multiplier multiplier(.clk(clk), .a(a), .b(b), .read(read), .result(result)); 
+multiplier multiplier_0(.clk(clk), .a(a), .b(b), .read(read), .result(result)); 
 
 endmodule
