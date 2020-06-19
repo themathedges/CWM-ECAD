@@ -25,10 +25,11 @@ assign addr_wire = (arvalid && arready)? {24'b0,a,b,2'b0} : 32'bX; 	// undefined
 assign rsta_busy = rst? 1'b1:1'b0;
 assign rstb_busy = rst? 1'b1:1'b0;
 
-assign result_wire[5:0] = (!rst && rvalid) ? result:result_wire[5:0]; 
+assign result_wire[5:0] = (!rst && rvalid) ? result:result_wire[5:0]; 	// result unchanged if !rvalid
 
 
 // . instance port ( module assignment ) is notation
+// input wires must be connected and can be driven by a number, output wires may not be connected but can never be driven by a number
 
 blk_mem_gen_0 mybram (
   .rsta_busy(rsta_busy),          // output wire rsta_busy
