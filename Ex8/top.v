@@ -20,13 +20,19 @@ wire [31:0] addr_wire;
 wire [31:0] result_wire;
 wire arvalid, rvalid, arready, rsta_busy, rstb_busy;
 
-assign addr_wire = (arvalid && arready)? {24'b0,a,b,2'b0} : 32'bX; 	// undefined if !arvalid
-
 assign rsta_busy = rst? 1'b1:1'b0;
 assign rstb_busy = rst? 1'b1:1'b0;
 
-assign result_wire[5:0] = (!rst && rvalid) ? result:result_wire[5:0]; 	// result unchanged if !rvalid
+assign arvalid = (!rst && arready && read)? 1'b1:1'b0; 
 
+assign addr_wire = (arvalid)? {24'b0,a,b,2'b0} : 32'b0;// address 0 if !arvalid
+
+always @(*) begin
+		if (!rst && rvalid) begin
+		result = result_wire[5:0]; 
+		end else begin
+		result = 6'b0;// result 0 if !rvalid
+		end end
 
 // . instance port ( module assignment ) is notation
 // input wires must be connected and can be driven by a number, output wires may not be connected but can never be driven by a number
